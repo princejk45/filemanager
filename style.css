@@ -421,6 +421,15 @@ body {
     background-color: #2980b9;
 }
 
+.btn-share {
+    background-color: #27ae60;
+    color: var(--white);
+}
+
+.btn-share:hover {
+    background-color: #229954;
+}
+
 .btn-delete {
     background-color: var(--danger-color);
     color: var(--white);

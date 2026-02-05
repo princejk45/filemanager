@@ -7,7 +7,27 @@ $error = '';
 
 $smtp_settings = getSMTPSettings();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+// Handle logo upload
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['logo'])) {
+    $allowed_types = ['image/png', 'image/jpeg', 'image/gif', 'image/webp'];
+    $max_size = 2 * 1024 * 1024; // 2MB
+    
+    if (!in_array($_FILES['logo']['type'], $allowed_types)) {
+        $error = $lang['invalid_logo_format'] ?? 'Only PNG, JPG, GIF, and WebP formats are allowed';
+    } elseif ($_FILES['logo']['size'] > $max_size) {
+        $error = $lang['logo_too_large'] ?? 'Logo file must be smaller than 2MB';
+    } elseif ($_FILES['logo']['error'] === UPLOAD_ERR_OK) {
+        $logo_path = 'logo.png';
+        if (move_uploaded_file($_FILES['logo']['tmp_name'], $logo_path)) {
+            $message = $lang['logo_uploaded'] ?? 'Logo uploaded successfully!';
+        } else {
+            $error = $lang['logo_upload_error'] ?? 'Error uploading logo';
+        }
+    } else {
+        $error = $lang['upload_error'] ?? 'Error uploading file';
+    }
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_FILES['logo'])) {
+    // SMTP settings form
     $host = $_POST['host'] ?? '';
     $port = (int)($_POST['port'] ?? 587);
     $username = $_POST['username'] ?? '';
@@ -96,6 +116,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <!-- Settings Form -->
             <section class="settings-section">
+                <!-- Logo Upload Card -->
+                <div class="settings-card">
+                    <h2>🎨 <?php echo $lang['upload_logo'] ?? 'Upload Organization Logo'; ?></h2>
+                    
+                    <div class="logo-preview">
+                        <img src="logo.png?t=<?php echo time(); ?>" alt="Current Logo" style="max-width: 150px; max-height: 150px;">
+                    </div>
+
+                    <form method="POST" enctype="multipart/form-data" class="settings-form">
+                        <div class="form-group">
+                            <label for="logo"><?php echo $lang['select_logo_file'] ?? 'Select Logo File'; ?></label>
+                            <input type="file" id="logo" name="logo" accept=".png,.jpg,.jpeg,.gif,.webp" required>
+                            <p style="font-size: 13px; color: var(--text-light); margin-top: 8px;">
+                                <?php echo $lang['logo_requirements'] ?? 'PNG, JPG, GIF, or WebP (Max 2MB)'; ?>
+                            </p>
+                        </div>
+                        <button type="submit" class="btn btn-primary"><?php echo $lang['upload_button'] ?? 'Upload Logo'; ?></button>
+                    </form>
+                </div>
+
+                <!-- SMTP Settings Card -->
                 <div class="settings-card">
                     <h2><?php echo $lang['smtp_settings']; ?></h2>
                     

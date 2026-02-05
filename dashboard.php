@@ -80,6 +80,9 @@ if (isset($_GET['logout'])) {
                     <a href="admin-settings.php" class="nav-item">
                         <span>⚙️ <?php echo $lang['admin_panel']; ?></span>
                     </a>
+                    <a href="admin-files.php" class="nav-item">
+                        <span>📊 <?php echo $lang['admin_all_files'] ?? 'All Files'; ?></span>
+                    </a>
                 <?php endif; ?>
             </nav>
             
@@ -193,6 +196,9 @@ if (isset($_GET['logout'])) {
                                     <a href="uploads/<?php echo htmlspecialchars($file['filename']); ?>" target="_blank" class="btn btn-small btn-view" title="View">
                                         <?php echo $lang['view_button']; ?>
                                     </a>
+                                    <a href="share.php?token=<?php echo htmlspecialchars($file['share_token']); ?>" class="btn btn-small btn-share" title="Share" onclick="copyShareLink(this); return false;">
+                                        🔗 <?php echo $lang['share_button'] ?? 'Share'; ?>
+                                    </a>
                                     <a href="dashboard.php?delete=<?php echo $file['id']; ?>" class="btn btn-small btn-delete" onclick="return confirm('<?php echo $lang['delete_confirmation']; ?>');" title="Delete">
                                         <?php echo $lang['delete_button']; ?>
                                     </a>
@@ -257,6 +263,26 @@ if (isset($_GET['logout'])) {
                 toggleChangePassword();
             }
         });
+
+        // Copy share link to clipboard
+        function copyShareLink(button) {
+            const shareUrl = button.href;
+            const textarea = document.createElement('textarea');
+            textarea.value = shareUrl;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            
+            // Show feedback
+            const originalText = button.textContent;
+            button.textContent = '✓ Copied!';
+            button.style.background = '#27ae60';
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.background = '';
+            }, 2000);
+        }
     </script>
 </body>
 </html>

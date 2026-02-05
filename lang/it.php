@@ -51,10 +51,15 @@ $lang = [
     'no_files' => 'Nessun file ancora',
     'upload_first_file' => 'Carica il tuo primo file per iniziare',
     'view_button' => '👁️ Visualizza',
+    'share_button' => '🔗 Condividi',
     'delete_button' => '🗑️ Elimina',
     'delete_confirmation' => 'Sei sicuro?',
     'file_deleted' => 'File eliminato con successo',
     'error_deleting_file' => 'Errore nell\'eliminazione del file',
+    'shared_file' => 'File Condiviso',
+    'copy_share_link' => 'Copia Link di Condivisione',
+    'invalid_share_link' => 'Link di condivisione non valido',
+    'file_not_found' => 'File non trovato',
     
     // Change Password
     'change_password_title' => 'Cambia Password',
@@ -106,6 +111,21 @@ $lang = [
     
     // Admin Settings
     'admin_panel' => 'Pannello Admin',
+    'admin_all_files' => 'Tutti i File',
+    'admin_all_files_desc' => 'Visualizza e gestisci tutti i file caricati dagli utenti',
+    'upload_logo' => 'Carica Logo Organizzazione',
+    'select_logo_file' => 'Seleziona File Logo',
+    'logo_requirements' => 'PNG, JPG, GIF, o WebP (Max 2MB)',
+    'logo_uploaded' => 'Logo caricato con successo',
+    'invalid_logo_format' => 'Solo i formati PNG, JPG, GIF e WebP sono consentiti',
+    'logo_too_large' => 'Il file del logo deve essere inferiore a 2MB',
+    'logo_upload_error' => 'Errore nel caricamento del logo',
+    'upload_button' => 'Carica',
+    'file_name' => 'Nome File',
+    'file_size' => 'Dimensione',
+    'date' => 'Data',
+    'actions' => 'Azioni',
+    'no_files_found' => 'Nessun file trovato',
     'smtp_settings' => 'Configurazione SMTP',
     'smtp_host' => 'Host SMTP',
     'smtp_port' => 'Porta SMTP',
@@ -117,6 +137,8 @@ $lang = [
     'save_settings' => 'Salva Impostazioni',
     'settings_saved' => 'Impostazioni salvate con successo',
     'error_saving_settings' => 'Errore nel salvataggio delle impostazioni',
+];
+?>
     'test_email' => 'Invia Email di Test',
     'test_email_sent' => 'Email di test inviata con successo',
 ];

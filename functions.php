@@ -252,11 +252,12 @@ function uploadFile($user_id, $file) {
     $original_name = basename($file['name']);
     $file_ext = pathinfo($original_name, PATHINFO_EXTENSION);
     $filename = uniqid() . '.' . $file_ext;
+    $share_token = generateToken();
     $upload_path = 'uploads/' . $filename;
     
     if (move_uploaded_file($file['tmp_name'], $upload_path)) {
-        $stmt = $conn->prepare("INSERT INTO files (user_id, filename, original_name, file_type, file_size) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("isssi", $user_id, $filename, $original_name, $file['type'], $file['size']);
+        $stmt = $conn->prepare("INSERT INTO files (user_id, filename, original_name, file_type, file_size, share_token) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("isssss", $user_id, $filename, $original_name, $file['type'], $file['size'], $share_token);
         
         if ($stmt->execute()) {
             return ['success' => true, 'message' => $lang['file_uploaded']];
@@ -316,6 +317,30 @@ function formatFileSize($bytes) {
     $bytes /= (1 << (10 * $pow));
     
     return round($bytes, 2) . ' ' . $units[$pow];
+}
+
+// Get all files (admin only)
+function getAllFiles() {
+    global $conn;
+    
+    $stmt = $conn->prepare("SELECT f.*, u.username, u.email FROM files f JOIN users u ON f.user_id = u.id ORDER BY f.upload_date DESC");
+    $stmt->execute();
+    return $stmt->get_result();
+}
+
+// Get file by share token (public access)
+function getFileByShareToken($share_token) {
+    global $conn;
+    
+    $stmt = $conn->prepare("SELECT * FROM files WHERE share_token = ?");
+    $stmt->bind_param("s", $share_token);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows === 1) {
+        return $result->fetch_assoc();
+    }
+    return null;
 }
 
 // Get file icon based on type
