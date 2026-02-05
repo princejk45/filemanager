@@ -38,6 +38,28 @@ $sql = "CREATE TABLE IF NOT EXISTS users (
 )";
 $conn->query($sql);
 
+// Add missing columns if they don't exist (migration)
+$result = $conn->query("SHOW COLUMNS FROM users LIKE 'role'");
+if ($result->num_rows === 0) {
+    $conn->query("ALTER TABLE users ADD COLUMN role ENUM('user', 'admin') DEFAULT 'user'");
+}
+
+$result = $conn->query("SHOW COLUMNS FROM users LIKE 'is_verified'");
+if ($result->num_rows === 0) {
+    $conn->query("ALTER TABLE users ADD COLUMN is_verified TINYINT DEFAULT 0");
+}
+
+$result = $conn->query("SHOW COLUMNS FROM users LIKE 'verification_token'");
+if ($result->num_rows === 0) {
+    $conn->query("ALTER TABLE users ADD COLUMN verification_token VARCHAR(255)");
+}
+
+$result = $conn->query("SHOW COLUMNS FROM users LIKE 'reset_token'");
+if ($result->num_rows === 0) {
+    $conn->query("ALTER TABLE users ADD COLUMN reset_token VARCHAR(255)");
+    $conn->query("ALTER TABLE users ADD COLUMN reset_token_expiry DATETIME");
+}
+
 // Create SMTP settings table
 $sql = "CREATE TABLE IF NOT EXISTS smtp_settings (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -65,6 +87,12 @@ $sql = "CREATE TABLE IF NOT EXISTS files (
     FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
 )";
 $conn->query($sql);
+
+// Add share_token column if it doesn't exist (migration)
+$result = $conn->query("SHOW COLUMNS FROM files LIKE 'share_token'");
+if ($result->num_rows === 0) {
+    $conn->query("ALTER TABLE files ADD COLUMN share_token VARCHAR(64) UNIQUE");
+}
 
 // Create uploads directory if not exists
 if (!is_dir('uploads')) {

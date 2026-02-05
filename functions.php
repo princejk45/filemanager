@@ -253,7 +253,7 @@ function uploadFile($user_id, $file) {
     $file_ext = pathinfo($original_name, PATHINFO_EXTENSION);
     $filename = uniqid() . '.' . $file_ext;
     $share_token = generateToken();
-    $upload_path = 'uploads/' . $filename;
+    $upload_path = __DIR__ . '/uploads/' . $filename;
     
     if (move_uploaded_file($file['tmp_name'], $upload_path)) {
         $stmt = $conn->prepare("INSERT INTO files (user_id, filename, original_name, file_type, file_size, share_token) VALUES (?, ?, ?, ?, ?, ?)");

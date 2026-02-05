@@ -197,7 +197,7 @@ if (isset($_GET['logout'])) {
                                         <?php echo $lang['view_button']; ?>
                                     </a>
                                     <a href="share.php?token=<?php echo htmlspecialchars($file['share_token']); ?>" class="btn btn-small btn-share" title="Share" onclick="copyShareLink(this); return false;">
-                                        🔗 <?php echo $lang['share_button'] ?? 'Share'; ?>
+                                        <?php echo $lang['share_button'] ?? 'Share'; ?>
                                     </a>
                                     <a href="dashboard.php?delete=<?php echo $file['id']; ?>" class="btn btn-small btn-delete" onclick="return confirm('<?php echo $lang['delete_confirmation']; ?>');" title="Delete">
                                         <?php echo $lang['delete_button']; ?>
@@ -222,6 +222,18 @@ if (isset($_GET['logout'])) {
         const uploadBox = document.querySelector('.upload-box');
         const fileInput = document.getElementById('fileInput');
         const uploadForm = document.getElementById('uploadForm');
+
+        // Click on upload box to open file dialog
+        uploadBox.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        // When file is selected, submit the form
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length > 0) {
+                uploadForm.submit();
+            }
+        });
 
         ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
             uploadBox.addEventListener(eventName, preventDefaults, false);

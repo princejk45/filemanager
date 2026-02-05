@@ -99,8 +99,8 @@ body {
 }
 
 .auth-logo img {
-    width: 80px;
-    height: 80px;
+    width: 120px;
+    height: 120px;
     object-fit: contain;
 }
 
@@ -147,7 +147,7 @@ body {
 }
 
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .form-group:last-child {
@@ -157,9 +157,14 @@ body {
 .form-group label {
     display: block;
     margin-bottom: 8px;
+    margin-top: 20px;
     color: var(--secondary-color);
     font-weight: 600;
     font-size: 14px;
+}
+
+.form-group:first-child label {
+    margin-top: 0;
 }
 
 .form-group input {
@@ -169,6 +174,7 @@ body {
     border-radius: 5px;
     font-size: 14px;
     transition: border-color 0.3s;
+    margin-bottom: 0;
 }
 
 .form-group input:focus {
@@ -304,6 +310,20 @@ body {
 
 .btn-logout {
     width: 100%;
+    background-color: var(--warning-color);
+    color: var(--white);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-logout:hover {
+    background-color: #d68910;
+    box-shadow: var(--shadow);
 }
 
 /* Main Content */
@@ -542,6 +562,7 @@ body {
     box-shadow: var(--shadow);
     display: flex;
     flex-direction: column;
+    min-width: 220px;
 }
 
 .file-card:hover {
@@ -599,16 +620,20 @@ body {
 }
 
 .file-actions {
-    padding: 10px 15px;
+    padding: 12px 15px;
     background: var(--light-bg);
     display: flex;
     gap: 8px;
+    flex-wrap: wrap;
 }
 
 .file-actions .btn {
     flex: 1;
     margin: 0;
-    padding: 8px;
+    padding: 8px 10px;
+    min-width: 60px;
+    font-size: 11px;
+    white-space: nowrap;
 }
 
 /* Empty State */

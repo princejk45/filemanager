@@ -17,11 +17,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['logo'])) {
     } elseif ($_FILES['logo']['size'] > $max_size) {
         $error = $lang['logo_too_large'] ?? 'Logo file must be smaller than 2MB';
     } elseif ($_FILES['logo']['error'] === UPLOAD_ERR_OK) {
-        $logo_path = 'logo.png';
+        $logo_path = __DIR__ . '/logo.png';
         if (move_uploaded_file($_FILES['logo']['tmp_name'], $logo_path)) {
             $message = $lang['logo_uploaded'] ?? 'Logo uploaded successfully!';
+            chmod($logo_path, 0644);
         } else {
-            $error = $lang['logo_upload_error'] ?? 'Error uploading logo';
+            $error = $lang['logo_upload_error'] ?? 'Error uploading logo. Check file permissions.';
         }
     } else {
         $error = $lang['upload_error'] ?? 'Error uploading file';
