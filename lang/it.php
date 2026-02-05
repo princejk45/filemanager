@@ -58,7 +58,7 @@ $lang = [
     'error_deleting_file' => 'Errore nell\'eliminazione del file',
     'shared_file' => 'File Condiviso',
     'copy_share_link' => 'Copia Link di Condivisione',
-    'link_copied' => '✓ Copiato!',
+    'link_copied' => 'Copiato!',
     'invalid_share_link' => 'Link di condivisione non valido',
     'file_not_found' => 'File non trovato',
     

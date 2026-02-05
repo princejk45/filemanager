@@ -923,3 +923,41 @@ body {
         font-size: 18px;
     }
 }
+
+/* Copy Link Modal */
+.modal-small {
+    max-width: 320px;
+}
+
+.modal-content {
+    background-color: var(--white);
+    padding: 0;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: var(--shadow-lg);
+    animation: modalSlideIn 0.3s ease-out;
+    overflow: hidden;
+}
+
+.modal-body {
+    padding: 50px 40px;
+}
+
+.copy-status-icon {
+    font-size: 56px;
+    color: #27ae60;
+    text-align: center;
+    margin: 0 0 12px 0;
+    line-height: 1;
+    display: block;
+}
+
+#copyModalMessage {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    color: #2c3e50;
+    margin: 0;
+    letter-spacing: 0.3px;
+}

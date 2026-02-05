@@ -196,7 +196,7 @@ $files_result = getAllFiles();
                                     <td><?php echo date('M d, Y H:i', strtotime($file['upload_date'])); ?></td>
                                     <td class="admin-actions">
                                         <a href="uploads/<?php echo htmlspecialchars($file['filename']); ?>" target="_blank" class="btn btn-small btn-view">👁️</a>
-                                        <a href="share.php?token=<?php echo htmlspecialchars($file['share_token']); ?>" class="btn btn-small btn-share" title="Share">🔗</a>
+                                        <a href="#" class="btn btn-small btn-share" data-filename="<?php echo htmlspecialchars($file['filename']); ?>" onclick="copyDirectLink(this); return false;">🔗</a>
                                         <a href="admin-files.php?delete=<?php echo $file['id']; ?>" class="btn btn-small btn-delete" onclick="return confirm('<?php echo $lang['delete_confirmation']; ?>');">🗑️</a>
                                     </td>
                                 </tr>
@@ -212,12 +212,46 @@ $files_result = getAllFiles();
         </main>
     </div>
 
+    <!-- Copy Link Modal -->
+    <div id="copyModal" class="modal">
+        <div class="modal-content modal-small">
+            <div class="modal-body">
+                <div class="copy-status-icon">✓</div>
+                <p id="copyModalMessage"><?php echo $lang['link_copied'] ?? 'Copied!'; ?></p>
+            </div>
+        </div>
+    </div>
+
     <script>
         function toggleChangePassword() {
             const modal = document.getElementById('changePasswordModal');
             if (modal) {
                 modal.style.display = modal.style.display === 'none' ? 'flex' : 'none';
             }
+        }
+
+        // Copy direct file link to clipboard
+        function copyDirectLink(button) {
+            const filename = button.getAttribute('data-filename');
+            const protocol = window.location.protocol;
+            const host = window.location.host;
+            const directLink = protocol + '//' + host + '/filemanager/uploads/' + filename;
+            
+            const textarea = document.createElement('textarea');
+            textarea.value = directLink;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+
+            // Show modal
+            const modal = document.getElementById('copyModal');
+            modal.style.display = 'flex';
+
+            // Auto-close after 2 seconds
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 2000);
         }
     </script>
 </body>

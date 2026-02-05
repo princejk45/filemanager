@@ -58,7 +58,7 @@ $lang = [
     'error_deleting_file' => 'Error deleting file',
     'shared_file' => 'Shared File',
     'copy_share_link' => 'Copy Share Link',
-    'link_copied' => '✓ Copied!',
+    'link_copied' => 'Copied!',
     'invalid_share_link' => 'Invalid share link',
     'file_not_found' => 'File not found',
     
