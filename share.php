@@ -140,6 +140,11 @@ if ($file && isset($_GET['download'])) {
 </head>
 <body>
     <div class="share-container">
+        <?php if (file_exists('logo.png')): ?>
+            <div style="margin-bottom: 20px;">
+                <img src="logo.png" alt="Logo" style="max-width: 120px; height: auto;">
+            </div>
+        <?php endif; ?>
         <h1>📤 <?php echo $lang['shared_file'] ?? 'Shared File'; ?></h1>
         
         <?php if ($error): ?>

@@ -288,7 +288,8 @@ if (isset($_GET['logout'])) {
             
             // Show feedback
             const originalText = button.textContent;
-            button.textContent = '✓ Copied!';
+            const copiedText = '<?php echo $lang["link_copied"] ?? "✓ Copied!"; ?>';
+            button.textContent = copiedText;
             button.style.background = '#27ae60';
             setTimeout(() => {
                 button.textContent = originalText;

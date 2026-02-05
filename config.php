@@ -52,6 +52,12 @@ if ($result->num_rows === 0) {
 $result = $conn->query("SHOW COLUMNS FROM users LIKE 'verification_token'");
 if ($result->num_rows === 0) {
     $conn->query("ALTER TABLE users ADD COLUMN verification_token VARCHAR(255)");
+    $conn->query("ALTER TABLE users ADD COLUMN verification_token_expiry DATETIME");
+}
+
+$result = $conn->query("SHOW COLUMNS FROM users LIKE 'verification_token_expiry'");
+if ($result->num_rows === 0) {
+    $conn->query("ALTER TABLE users ADD COLUMN verification_token_expiry DATETIME");
 }
 
 $result = $conn->query("SHOW COLUMNS FROM users LIKE 'reset_token'");
