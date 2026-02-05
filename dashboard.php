@@ -76,6 +76,11 @@ if (isset($_GET['logout'])) {
                 <a href="#" onclick="toggleChangePassword(); return false;" class="nav-item">
                     <span>🔐 <?php echo $lang['change_password_menu']; ?></span>
                 </a>
+                <?php if (isAdmin()): ?>
+                    <a href="admin-settings.php" class="nav-item">
+                        <span>⚙️ <?php echo $lang['admin_panel']; ?></span>
+                    </a>
+                <?php endif; ?>
             </nav>
             
             <div class="language-switcher-dashboard">

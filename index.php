@@ -76,8 +76,8 @@ if (isLoggedIn()) {
             
             <form method="POST" class="auth-form">
                 <div class="form-group">
-                    <label for="username"><?php echo $lang['username']; ?></label>
-                    <input type="text" id="username" name="username" required value="<?php echo htmlspecialchars($_POST['username'] ?? ''); ?>">
+                    <label for="username"><?php echo $lang['username']; ?> / <?php echo $lang['email']; ?></label>
+                    <input type="text" id="username" name="username" required value="<?php echo htmlspecialchars($_POST['username'] ?? ''); ?>" placeholder="<?php echo $lang['username']; ?> or email">
                 </div>
                 
                 <?php if ($register_mode): ?>
@@ -103,6 +103,12 @@ if (isLoggedIn()) {
                     <?php echo $register_mode ? $lang['register_button'] : $lang['login_button']; ?>
                 </button>
             </form>
+            
+            <?php if (!$register_mode): ?>
+                <p class="forgot-password-link">
+                    <a href="forgot-password.php?lang=<?php echo $current_lang; ?>"><?php echo $lang['forgot_password_link']; ?></a>
+                </p>
+            <?php endif; ?>
             
             <p class="auth-switch">
                 <?php if ($register_mode): ?>

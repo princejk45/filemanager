@@ -118,6 +118,25 @@ body {
     margin-bottom: 25px;
 }
 
+.auth-instruction {
+    text-align: center;
+    color: var(--text-light);
+    font-size: 14px;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.forgot-password-link {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.forgot-password-link a {
+    color: var(--primary-color);
+    font-size: 13px;
+    text-decoration: none;
+}
+
 .auth-form {
     margin-bottom: 20px;
 }
@@ -680,6 +699,89 @@ body {
 }
 
 /* ============================================
+   SETTINGS PAGE STYLES
+   ============================================ */
+.settings-section {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+
+.settings-card {
+    margin-bottom: 30px;
+}
+
+.settings-card h2 {
+    color: var(--secondary-color);
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.settings-form {
+    background: var(--light-bg);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    margin-bottom: 0;
+}
+
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: var(--white);
+    cursor: pointer;
+}
+
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.settings-form .btn {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.settings-info {
+    background: rgba(52, 152, 219, 0.05);
+    padding: 20px;
+    border-left: 4px solid var(--primary-color);
+    border-radius: 5px;
+}
+
+.settings-info p {
+    color: var(--secondary-color);
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.settings-info ul {
+    list-style: none;
+    padding: 0;
+}
+
+.settings-info li {
+    padding: 8px 0;
+    color: var(--text-dark);
+    font-size: 13px;
+}
+
+/* ============================================
    RESPONSIVE DESIGN
    ============================================ */
 @media (max-width: 768px) {
@@ -738,6 +840,10 @@ body {
     .auth-box h1 {
         font-size: 24px;
         margin-bottom: 20px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
     }
 }
 
