@@ -9,7 +9,7 @@ A modern, feature-rich file management system built with PHP, MySQL, and PHPMail
 - ✅ **Email Verification** - 24-hour token validation prevents spam registrations
 - ✅ **Password Reset** - 1-hour token-based secure password recovery
 - ✅ **Role-Based Access** - User and Admin accounts with separate permissions
-- ✅ **Domain Restriction** - Limited to @fullmidia.it email addresses
+- ✅ **Domain Restriction** - Limited to @domain.tld email addresses
 - ✅ **Bcrypt Hashing** - Military-grade password encryption
 - ✅ **Session Management** - 1-hour inactivity timeout
 - ✅ **CSRF Protection** - POST method validation
@@ -83,7 +83,7 @@ The database tables will be created automatically on first access.
 1. Click **"Register here"** on the login page
 2. Enter:
    - **Username** - Unique identifier for login
-   - **Email** - Must be @fullmidia.it domain
+   - **Email** - Must be for a specified @domain.tld domain
    - **Password** - Minimum 6 characters
    - **Confirm Password** - Must match
 3. Click **"Create Account"**
@@ -210,7 +210,7 @@ filemanager/
 |--------|------|-------------|
 | `id` | INT | Primary key |
 | `username` | VARCHAR(50) | Unique username |
-| `email` | VARCHAR(100) | Unique email (@fullmidia.it) |
+| `email` | VARCHAR(100) | Unique email (@domain.tld) |
 | `password` | VARCHAR(255) | Bcrypt hashed password |
 | `role` | ENUM | 'user' or 'admin' |
 | `is_verified` | TINYINT | Email verification status |
@@ -264,7 +264,7 @@ To add more languages:
 ✅ **SQL Injection Prevention** - Prepared statements on all queries
 ✅ **Token-Based Email Verification** - 24-hour expiry
 ✅ **Secure Password Resets** - 1-hour expiry, one-time use
-✅ **Domain Validation** - @fullmidia.it restriction
+✅ **Domain Validation** - @domain.tld restriction
 ✅ **Session Timeouts** - 1-hour inactivity limit
 ✅ **CSRF Protection** - POST method with session checks
 ✅ **File Type Validation** - Only PDF, JPG, PNG, GIF
