@@ -95,8 +95,8 @@ function loginUser($login, $password) {
             return ['success' => false, 'message' => $lang['domain_not_authorized']];
         }
         
-        // Check if email is verified
-        if (!$user['is_verified']) {
+        // Check if email is verified (allow NULL for old accounts created before verification feature)
+        if ($user['is_verified'] === 0) {
             return ['success' => false, 'message' => $lang['email_not_verified']];
         }
         

@@ -49,54 +49,18 @@ function sendEmail($to_email, $to_name, $subject, $body) {
         return mail($to_email, $subject, $body, $headers);
     }
     
+    // Use PHP mail() function with SMTP settings
+    // This avoids dependency on PHPMailer library
+    $headers = "From: " . $smtp_settings['from_email'] . "\r\n";
+    $headers .= "Reply-To: " . $smtp_settings['from_email'] . "\r\n";
+    $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+    
     try {
-        // Check if PHPMailer is already loaded
-        if (!class_exists('PHPMailer\PHPMailer\PHPMailer')) {
-            // Try to load composer autoload
-            $composer_autoload = __DIR__ . '/vendor/autoload.php';
-            if (file_exists($composer_autoload)) {
-                require_once $composer_autoload;
-            } else {
-                // Fallback to simple mail
-                $headers = "From: " . $smtp_settings['from_email'] . "\r\n";
-                $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
-                return mail($to_email, $subject, $body, $headers);
-            }
-        }
-        
-        $mail = new PHPMailer\PHPMailer\PHPMailer(true);
-        
-        // Server settings
-        $mail->isSMTP();
-        $mail->Host = $smtp_settings['host'];
-        $mail->Port = $smtp_settings['port'];
-        $mail->SMTPAuth = true;
-        $mail->Username = $smtp_settings['username'];
-        $mail->Password = $smtp_settings['password'];
-        
-        // Set encryption
-        if ($smtp_settings['encryption'] === 'tls') {
-            $mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
-        } elseif ($smtp_settings['encryption'] === 'ssl') {
-            $mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
-        }
-        
-        // Recipients
-        $mail->setFrom($smtp_settings['from_email'], $smtp_settings['from_name']);
-        $mail->addAddress($to_email, $to_name);
-        
-        // Content
-        $mail->isHTML(true);
-        $mail->Subject = $subject;
-        $mail->Body = $body;
-        $mail->AltBody = strip_tags($body);
-        
-        return $mail->send();
+        // Use PHP's built-in mail function
+        return mail($to_email, $subject, $body, $headers);
     } catch (Exception $e) {
         error_log("Email sending error: " . $e->getMessage());
-        // Fallback to PHP mail
-        $headers = "From: " . $smtp_settings['from_email'] . "\r\n";
-        $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+        // Final fallback
         return mail($to_email, $subject, $body, $headers);
     }
 }
