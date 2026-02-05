@@ -1,0 +1,23 @@
+# Composer dependencies
+vendor/
+composer.lock
+
+# Upload directory (user files)
+uploads/
+
+# Local configuration files (if used)
+.env
+.env.local
+*.log
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS specific files
+Thumbs.db
+.DS_Store

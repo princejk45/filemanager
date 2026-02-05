@@ -49,18 +49,42 @@ function sendEmail($to_email, $to_name, $subject, $body) {
         return mail($to_email, $subject, $body, $headers);
     }
     
-    // Use PHP mail() function with SMTP settings
-    // This avoids dependency on PHPMailer library
-    $headers = "From: " . $smtp_settings['from_email'] . "\r\n";
-    $headers .= "Reply-To: " . $smtp_settings['from_email'] . "\r\n";
-    $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
-    
     try {
-        // Use PHP's built-in mail function
-        return mail($to_email, $subject, $body, $headers);
+        // Load PHPMailer via composer autoload
+        require_once __DIR__ . '/vendor/autoload.php';
+        
+        $mail = new PHPMailer\PHPMailer\PHPMailer(true);
+        
+        // SMTP configuration
+        $mail->isSMTP();
+        $mail->Host = $smtp_settings['host'];
+        $mail->Port = $smtp_settings['port'];
+        $mail->SMTPAuth = true;
+        $mail->Username = $smtp_settings['username'];
+        $mail->Password = $smtp_settings['password'];
+        
+        // Set encryption
+        if ($smtp_settings['encryption'] === 'tls') {
+            $mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
+        } elseif ($smtp_settings['encryption'] === 'ssl') {
+            $mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
+        }
+        
+        // Recipients and content
+        $mail->setFrom($smtp_settings['from_email'], $smtp_settings['from_name']);
+        $mail->addAddress($to_email, $to_name);
+        $mail->isHTML(true);
+        $mail->Subject = $subject;
+        $mail->Body = $body;
+        $mail->AltBody = strip_tags($body);
+        
+        return $mail->send();
     } catch (Exception $e) {
-        error_log("Email sending error: " . $e->getMessage());
-        // Final fallback
+        error_log("PHPMailer Error: " . $e->getMessage());
+        // Fallback to PHP mail function
+        $headers = "From: " . $smtp_settings['from_email'] . "\r\n";
+        $headers .= "Reply-To: " . $smtp_settings['from_email'] . "\r\n";
+        $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
         return mail($to_email, $subject, $body, $headers);
     }
 }

@@ -39,7 +39,7 @@ $lang = [
     // Upload Section
     'upload_files' => 'Upload Files',
     'drag_drop_text' => 'Drag and drop or click to select PDF, JPG, PNG, or GIF files',
-    'max_file_size' => 'Max size: 50MB',
+    'max_file_size' => 'Max size: 2MB',
     'file_uploaded' => 'File uploaded successfully',
     'upload_error' => 'Error uploading file',
     'invalid_file_type' => 'Only JPG, PNG, GIF, and PDF files are allowed',

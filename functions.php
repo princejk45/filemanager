@@ -239,7 +239,7 @@ function uploadFile($user_id, $file) {
     global $conn, $lang;
     
     $allowed_types = ['image/jpeg', 'image/png', 'image/gif', 'application/pdf'];
-    $max_size = 50 * 1024 * 1024; // 50MB
+    $max_size = 2 * 1024 * 1024; // 2MB
     
     if (!in_array($file['type'], $allowed_types)) {
         return ['success' => false, 'message' => $lang['invalid_file_type']];
