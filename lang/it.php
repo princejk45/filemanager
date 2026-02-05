@@ -137,8 +137,6 @@ $lang = [
     'save_settings' => 'Salva Impostazioni',
     'settings_saved' => 'Impostazioni salvate con successo',
     'error_saving_settings' => 'Errore nel salvataggio delle impostazioni',
-];
-?>
     'test_email' => 'Invia Email di Test',
     'test_email_sent' => 'Email di test inviata con successo',
 ];
